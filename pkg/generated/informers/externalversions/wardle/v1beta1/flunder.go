@@ -22,14 +22,14 @@ import (
 	"context"
 	time "time"
 
+	wardlev1beta1 "git.woa.com/richardgu/sample-apisvc/pkg/apis/wardle/v1beta1"
+	versioned "git.woa.com/richardgu/sample-apisvc/pkg/generated/clientset/versioned"
+	internalinterfaces "git.woa.com/richardgu/sample-apisvc/pkg/generated/informers/externalversions/internalinterfaces"
+	v1beta1 "git.woa.com/richardgu/sample-apisvc/pkg/generated/listers/wardle/v1beta1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	watch "k8s.io/apimachinery/pkg/watch"
 	cache "k8s.io/client-go/tools/cache"
-	wardlev1beta1 "k8s.io/sample-apiserver/pkg/apis/wardle/v1beta1"
-	versioned "k8s.io/sample-apiserver/pkg/generated/clientset/versioned"
-	internalinterfaces "k8s.io/sample-apiserver/pkg/generated/informers/externalversions/internalinterfaces"
-	v1beta1 "k8s.io/sample-apiserver/pkg/generated/listers/wardle/v1beta1"
 )
 
 // FlunderInformer provides access to a shared informer and lister for

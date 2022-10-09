@@ -16,9 +16,9 @@ limitations under the License.
 
 // +k8s:openapi-gen=true
 // +k8s:deepcopy-gen=package
-// +k8s:conversion-gen=k8s.io/sample-apiserver/pkg/apis/wardle
+// +k8s:conversion-gen=git.woa.com/richardgu/sample-apisvc/pkg/apis/wardle
 // +k8s:defaulter-gen=TypeMeta
 // +groupName=wardle.example.com
 
 // Package v1alpha1 is the v1alpha1 version of the API.
-package v1alpha1 // import "k8s.io/sample-apiserver/pkg/apis/wardle/v1alpha1"
+package v1alpha1 // import "git.woa.com/richardgu/sample-apisvc/pkg/apis/wardle/v1alpha1"

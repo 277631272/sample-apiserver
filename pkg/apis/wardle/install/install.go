@@ -17,11 +17,11 @@ limitations under the License.
 package install
 
 import (
+	"git.woa.com/richardgu/sample-apisvc/pkg/apis/wardle"
+	"git.woa.com/richardgu/sample-apisvc/pkg/apis/wardle/v1alpha1"
+	"git.woa.com/richardgu/sample-apisvc/pkg/apis/wardle/v1beta1"
 	"k8s.io/apimachinery/pkg/runtime"
 	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
-	"k8s.io/sample-apiserver/pkg/apis/wardle"
-	"k8s.io/sample-apiserver/pkg/apis/wardle/v1alpha1"
-	"k8s.io/sample-apiserver/pkg/apis/wardle/v1beta1"
 )
 
 // Install registers the API group and adds types to a scheme

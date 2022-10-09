@@ -23,6 +23,13 @@ import (
 
 	"github.com/spf13/cobra"
 
+	"git.woa.com/richardgu/sample-apisvc/pkg/admission/plugin/banflunder"
+	"git.woa.com/richardgu/sample-apisvc/pkg/admission/wardleinitializer"
+	"git.woa.com/richardgu/sample-apisvc/pkg/apis/wardle/v1alpha1"
+	"git.woa.com/richardgu/sample-apisvc/pkg/apiserver"
+	clientset "git.woa.com/richardgu/sample-apisvc/pkg/generated/clientset/versioned"
+	informers "git.woa.com/richardgu/sample-apisvc/pkg/generated/informers/externalversions"
+	sampleopenapi "git.woa.com/richardgu/sample-apisvc/pkg/generated/openapi"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	utilerrors "k8s.io/apimachinery/pkg/util/errors"
@@ -32,13 +39,6 @@ import (
 	genericapiserver "k8s.io/apiserver/pkg/server"
 	genericoptions "k8s.io/apiserver/pkg/server/options"
 	utilfeature "k8s.io/apiserver/pkg/util/feature"
-	"k8s.io/sample-apiserver/pkg/admission/plugin/banflunder"
-	"k8s.io/sample-apiserver/pkg/admission/wardleinitializer"
-	"k8s.io/sample-apiserver/pkg/apis/wardle/v1alpha1"
-	"k8s.io/sample-apiserver/pkg/apiserver"
-	clientset "k8s.io/sample-apiserver/pkg/generated/clientset/versioned"
-	informers "k8s.io/sample-apiserver/pkg/generated/informers/externalversions"
-	sampleopenapi "k8s.io/sample-apiserver/pkg/generated/openapi"
 	netutils "k8s.io/utils/net"
 )
 

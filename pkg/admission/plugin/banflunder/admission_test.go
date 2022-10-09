@@ -21,16 +21,16 @@ import (
 	"testing"
 	"time"
 
+	"git.woa.com/richardgu/sample-apisvc/pkg/admission/plugin/banflunder"
+	"git.woa.com/richardgu/sample-apisvc/pkg/admission/wardleinitializer"
+	wardle "git.woa.com/richardgu/sample-apisvc/pkg/apis/wardle/v1alpha1"
+	"git.woa.com/richardgu/sample-apisvc/pkg/generated/clientset/versioned/fake"
+	informers "git.woa.com/richardgu/sample-apisvc/pkg/generated/informers/externalversions"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apiserver/pkg/admission"
 	clienttesting "k8s.io/client-go/testing"
-	"k8s.io/sample-apiserver/pkg/admission/plugin/banflunder"
-	"k8s.io/sample-apiserver/pkg/admission/wardleinitializer"
-	wardle "k8s.io/sample-apiserver/pkg/apis/wardle/v1alpha1"
-	"k8s.io/sample-apiserver/pkg/generated/clientset/versioned/fake"
-	informers "k8s.io/sample-apiserver/pkg/generated/informers/externalversions"
 )
 
 // TestBanfluderAdmissionPlugin tests various test cases against

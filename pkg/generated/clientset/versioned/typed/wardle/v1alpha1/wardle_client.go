@@ -21,9 +21,9 @@ package v1alpha1
 import (
 	"net/http"
 
+	v1alpha1 "git.woa.com/richardgu/sample-apisvc/pkg/apis/wardle/v1alpha1"
+	"git.woa.com/richardgu/sample-apisvc/pkg/generated/clientset/versioned/scheme"
 	rest "k8s.io/client-go/rest"
-	v1alpha1 "k8s.io/sample-apiserver/pkg/apis/wardle/v1alpha1"
-	"k8s.io/sample-apiserver/pkg/generated/clientset/versioned/scheme"
 )
 
 type WardleV1alpha1Interface interface {

@@ -21,14 +21,14 @@ import (
 	"fmt"
 	"io"
 
+	"git.woa.com/richardgu/sample-apisvc/pkg/admission/wardleinitializer"
+	"git.woa.com/richardgu/sample-apisvc/pkg/apis/wardle"
+	informers "git.woa.com/richardgu/sample-apisvc/pkg/generated/informers/externalversions"
+	listers "git.woa.com/richardgu/sample-apisvc/pkg/generated/listers/wardle/v1alpha1"
 	"k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/api/meta"
 	"k8s.io/apimachinery/pkg/labels"
 	"k8s.io/apiserver/pkg/admission"
-	"k8s.io/sample-apiserver/pkg/admission/wardleinitializer"
-	"k8s.io/sample-apiserver/pkg/apis/wardle"
-	informers "k8s.io/sample-apiserver/pkg/generated/informers/externalversions"
-	listers "k8s.io/sample-apiserver/pkg/generated/listers/wardle/v1alpha1"
 )
 
 // Register registers a plugin

@@ -19,8 +19,8 @@ package apiserver
 import (
 	"testing"
 
+	wardlefuzzer "git.woa.com/richardgu/sample-apisvc/pkg/apis/wardle/fuzzer"
 	"k8s.io/apimachinery/pkg/api/apitesting/roundtrip"
-	wardlefuzzer "k8s.io/sample-apiserver/pkg/apis/wardle/fuzzer"
 )
 
 func TestRoundTripTypes(t *testing.T) {

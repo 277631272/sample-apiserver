@@ -19,9 +19,9 @@ limitations under the License.
 package fake
 
 import (
+	v1beta1 "git.woa.com/richardgu/sample-apisvc/pkg/generated/clientset/versioned/typed/wardle/v1beta1"
 	rest "k8s.io/client-go/rest"
 	testing "k8s.io/client-go/testing"
-	v1beta1 "k8s.io/sample-apiserver/pkg/generated/clientset/versioned/typed/wardle/v1beta1"
 )
 
 type FakeWardleV1beta1 struct {
