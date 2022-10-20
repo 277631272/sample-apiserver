@@ -28,6 +28,7 @@ import (
 	"git.woa.com/richardgu/sample-apisvc/pkg/apis/wardle"
 	"git.woa.com/richardgu/sample-apisvc/pkg/apis/wardle/install"
 	wardleregistry "git.woa.com/richardgu/sample-apisvc/pkg/registry"
+	barstorage "git.woa.com/richardgu/sample-apisvc/pkg/registry/wardle/bar"
 	fischerstorage "git.woa.com/richardgu/sample-apisvc/pkg/registry/wardle/fischer"
 	flunderstorage "git.woa.com/richardgu/sample-apisvc/pkg/registry/wardle/flunder"
 )
@@ -115,10 +116,12 @@ func (c completedConfig) New() (*WardleServer, error) {
 	v1alpha1storage := map[string]rest.Storage{}
 	v1alpha1storage["flunders"] = wardleregistry.RESTInPeace(flunderstorage.NewREST(Scheme, c.GenericConfig.RESTOptionsGetter))
 	v1alpha1storage["fischers"] = wardleregistry.RESTInPeace(fischerstorage.NewREST(Scheme, c.GenericConfig.RESTOptionsGetter))
+	v1alpha1storage["bars"] = wardleregistry.RESTInPeace(barstorage.NewREST(Scheme, c.GenericConfig.RESTOptionsGetter))
 	apiGroupInfo.VersionedResourcesStorageMap["v1alpha1"] = v1alpha1storage
 
 	v1beta1storage := map[string]rest.Storage{}
 	v1beta1storage["flunders"] = wardleregistry.RESTInPeace(flunderstorage.NewREST(Scheme, c.GenericConfig.RESTOptionsGetter))
+	v1beta1storage["bars"] = wardleregistry.RESTInPeace(barstorage.NewREST(Scheme, c.GenericConfig.RESTOptionsGetter))
 	apiGroupInfo.VersionedResourcesStorageMap["v1beta1"] = v1beta1storage
 
 	if err := s.GenericAPIServer.InstallAPIGroup(&apiGroupInfo); err != nil {

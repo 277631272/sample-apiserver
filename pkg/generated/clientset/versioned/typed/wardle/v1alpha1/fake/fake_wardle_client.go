@@ -28,6 +28,10 @@ type FakeWardleV1alpha1 struct {
 	*testing.Fake
 }
 
+func (c *FakeWardleV1alpha1) Bars(namespace string) v1alpha1.BarInterface {
+	return &FakeBars{c, namespace}
+}
+
 func (c *FakeWardleV1alpha1) Fischers() v1alpha1.FischerInterface {
 	return &FakeFischers{c}
 }

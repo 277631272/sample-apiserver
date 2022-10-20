@@ -28,12 +28,17 @@ import (
 
 type WardleV1beta1Interface interface {
 	RESTClient() rest.Interface
+	BarsGetter
 	FlundersGetter
 }
 
 // WardleV1beta1Client is used to interact with features provided by the wardle.example.com group.
 type WardleV1beta1Client struct {
 	restClient rest.Interface
+}
+
+func (c *WardleV1beta1Client) Bars(namespace string) BarInterface {
+	return newBars(c, namespace)
 }
 
 func (c *WardleV1beta1Client) Flunders(namespace string) FlunderInterface {
