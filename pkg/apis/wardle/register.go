@@ -51,6 +51,8 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 		&FlunderList{},
 		&Fischer{},
 		&FischerList{},
+		&Bar{},
+		&BarList{},
 	)
 	return nil
 }

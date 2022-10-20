@@ -52,6 +52,8 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 		&FlunderList{},
 		&Fischer{},
 		&FischerList{},
+		&Bar{},
+		&BarList{},
 	)
 	metav1.AddToGroupVersion(scheme, SchemeGroupVersion)
 	return nil

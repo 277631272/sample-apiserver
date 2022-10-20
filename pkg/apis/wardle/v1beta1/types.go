@@ -63,3 +63,35 @@ type Flunder struct {
 	Spec   FlunderSpec   `json:"spec,omitempty" protobuf:"bytes,2,opt,name=spec"`
 	Status FlunderStatus `json:"status,omitempty" protobuf:"bytes,3,opt,name=status"`
 }
+
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+
+// BarList is a list of Bar objects.
+type BarList struct {
+	metav1.TypeMeta `json:",inline"`
+	metav1.ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
+
+	Items []Bar `json:"items" protobuf:"bytes,2,rep,name=items"`
+}
+
+// BarSpec is the specification of a Bar.
+type BarSpec struct {
+	// A name of another bar, mutually exclusive to the FischerReference.
+	Name int64 `json:"name,omitempty" protobuf:"bytes,1,opt,name=name"`
+}
+
+// BarStatus is the status of a Bar.
+type BarStatus struct {
+}
+
+// +genclient
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+
+// Bar is an example type with a spec and a status.
+type Bar struct {
+	metav1.TypeMeta   `json:",inline"`
+	metav1.ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
+
+	Spec   BarSpec   `json:"spec,omitempty" protobuf:"bytes,2,opt,name=spec"`
+	Status BarStatus `json:"status,omitempty" protobuf:"bytes,3,opt,name=status"`
+}

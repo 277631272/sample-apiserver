@@ -18,6 +18,8 @@ limitations under the License.
 
 package v1alpha1
 
+type BarExpansion interface{}
+
 type FischerExpansion interface{}
 
 type FlunderExpansion interface{}
