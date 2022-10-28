@@ -88,6 +88,7 @@ type CompletedConfig struct {
 // Complete fills in any fields not set that are required to have valid data. It's mutating the receiver.
 func (cfg *Config) Complete() CompletedConfig {
 	c := completedConfig{
+		// Complete补全缺失的、必须的配置信息，这些信息能够从已有配置导出
 		cfg.GenericConfig.Complete(),
 		&cfg.ExtraConfig,
 	}
@@ -102,6 +103,9 @@ func (cfg *Config) Complete() CompletedConfig {
 
 // New returns a new instance of WardleServer from the given config.
 func (c completedConfig) New() (*WardleServer, error) {
+	// 创建GenericAPIServer
+	// 名字用于在记录日志时进行区分
+	// DelegationTarget用于进行APIServer的组合（composition）
 	genericServer, err := c.GenericConfig.New("sample-apiserver", genericapiserver.NewEmptyDelegate())
 	if err != nil {
 		return nil, err
@@ -111,8 +115,11 @@ func (c completedConfig) New() (*WardleServer, error) {
 		GenericAPIServer: genericServer,
 	}
 
+	// 创建APIGroupInfo，关于一组API的各种信息，包括已经注册的API（Scheme），如何进行编解码（Codec）
+	// 如何解析查询参数（ParameterCodec）
 	apiGroupInfo := genericapiserver.NewDefaultAPIGroupInfo(wardle.GroupName, Scheme, metav1.ParameterCodec, Codecs)
 
+	// 从资源到rest.Storage的映射
 	v1alpha1storage := map[string]rest.Storage{}
 	v1alpha1storage["flunders"] = wardleregistry.RESTInPeace(flunderstorage.NewREST(Scheme, c.GenericConfig.RESTOptionsGetter))
 	v1alpha1storage["fischers"] = wardleregistry.RESTInPeace(fischerstorage.NewREST(Scheme, c.GenericConfig.RESTOptionsGetter))

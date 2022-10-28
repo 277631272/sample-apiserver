@@ -119,10 +119,12 @@ func (o *WardleServerOptions) Complete() error {
 // Config returns config for the api server given WardleServerOptions
 func (o *WardleServerOptions) Config() (*apiserver.Config, error) {
 	// TODO have a "real" external address
+	// 检查证书是否可以读取，如果不可以则尝试生成自签名证书
 	if err := o.RecommendedOptions.SecureServing.MaybeDefaultWithSelfSignedCerts("localhost", o.AlternateDNS, []net.IP{netutils.ParseIPSloppy("127.0.0.1")}); err != nil {
 		return nil, fmt.Errorf("error creating self-signed certificates: %v", err)
 	}
 
+	// 根据特性开关，决定是否支持分页
 	o.RecommendedOptions.Etcd.StorageConfig.Paging = utilfeature.DefaultFeatureGate.Enabled(features.APIListChunking)
 
 	o.RecommendedOptions.ExtraAdmissionInitializers = func(c *genericapiserver.RecommendedConfig) ([]admission.PluginInitializer, error) {
@@ -135,8 +137,10 @@ func (o *WardleServerOptions) Config() (*apiserver.Config, error) {
 		return []admission.PluginInitializer{wardleinitializer.New(informerFactory)}, nil
 	}
 
+	// 创建推荐配置
 	serverConfig := genericapiserver.NewRecommendedConfig(apiserver.Codecs)
 
+	// 暴露OpenAPI端点
 	serverConfig.OpenAPIConfig = genericapiserver.DefaultOpenAPIConfig(sampleopenapi.GetOpenAPIDefinitions, openapi.NewDefinitionNamer(apiserver.Scheme))
 	serverConfig.OpenAPIConfig.Info.Title = "Wardle"
 	serverConfig.OpenAPIConfig.Info.Version = "0.1"
@@ -147,10 +151,12 @@ func (o *WardleServerOptions) Config() (*apiserver.Config, error) {
 		serverConfig.OpenAPIV3Config.Info.Version = "0.1"
 	}
 
+	// 将RecommendedOptions应用到RecommendedConfig
 	if err := o.RecommendedOptions.ApplyTo(serverConfig); err != nil {
 		return nil, err
 	}
 
+	// 选项包含GenericConfig和你自定义的选项两部分
 	config := &apiserver.Config{
 		GenericConfig: serverConfig,
 		ExtraConfig:   apiserver.ExtraConfig{},
@@ -160,21 +166,25 @@ func (o *WardleServerOptions) Config() (*apiserver.Config, error) {
 
 // RunWardleServer starts a new WardleServer given WardleServerOptions
 func (o WardleServerOptions) RunWardleServer(stopCh <-chan struct{}) error {
+	// 选项转换为配置
 	config, err := o.Config()
 	if err != nil {
 		return err
 	}
 
+	// 配置转换为CompletedConfig，实例化APIServer
 	server, err := config.Complete().New()
 	if err != nil {
 		return err
 	}
 
+	// 注册一个在API Server启动之后运行的钩子
 	server.GenericAPIServer.AddPostStartHookOrDie("start-sample-server-informers", func(context genericapiserver.PostStartHookContext) error {
 		config.GenericConfig.SharedInformerFactory.Start(context.StopCh)
 		o.SharedInformerFactory.Start(context.StopCh)
 		return nil
 	})
 
+	// 准备运行、  运行 APIServer
 	return server.GenericAPIServer.PrepareRun().Run(stopCh)
 }

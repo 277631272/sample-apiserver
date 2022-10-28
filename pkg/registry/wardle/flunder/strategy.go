@@ -34,6 +34,7 @@ import (
 
 // NewStrategy creates and returns a flunderStrategy instance
 func NewStrategy(typer runtime.ObjectTyper) flunderStrategy {
+	// 简单命名策略：返回请求的basename外加5位字母数字的随即后缀
 	return flunderStrategy{typer, names.SimpleNameGenerator}
 }
 

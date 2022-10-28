@@ -30,11 +30,17 @@ func NewREST(scheme *runtime.Scheme, optsGetter generic.RESTOptionsGetter) (*reg
 	strategy := NewStrategy(scheme)
 
 	store := &genericregistry.Store{
-		NewFunc:                  func() runtime.Object { return &wardle.Bar{} },
-		NewListFunc:              func() runtime.Object { return &wardle.BarList{} },
-		PredicateFunc:            MatchBar,
+		// 实例化资源的函数
+		// 每次增删改查，都牵涉到结构的创建，因此在此打断点可以拦截所有请求
+		NewFunc: func() runtime.Object { return &wardle.Bar{} },
+		// 实例化资源列表的函数
+		NewListFunc: func() runtime.Object { return &wardle.BarList{} },
+		// 判断对象是否可以被该存储处理
+		PredicateFunc: MatchBar,
+		// 资源的复数名称，当上下文中缺少必要的请求信息时使用
 		DefaultQualifiedResource: wardle.Resource("bars"),
 
+		// 增删改的策略
 		CreateStrategy: strategy,
 		UpdateStrategy: strategy,
 		DeleteStrategy: strategy,
@@ -42,6 +48,7 @@ func NewREST(scheme *runtime.Scheme, optsGetter generic.RESTOptionsGetter) (*reg
 		// TODO: define table converter that exposes more than name/creation timestamp
 		TableConvertor: rest.NewDefaultTableConvertor(wardle.Resource("bars")),
 	}
+	// 填充默认字段
 	options := &generic.StoreOptions{RESTOptions: optsGetter, AttrFunc: GetAttrs}
 	if err := store.CompleteWithOptions(options); err != nil {
 		return nil, err
