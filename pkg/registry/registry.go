@@ -24,6 +24,22 @@ import (
 
 // REST implements a RESTStorage for API services against etcd
 type REST struct {
+	//// 实现了rest.Storage
+	//	type Storage interface {
+	//	// 当请求的数据存放到该方法创建的对象之后，可以调用Create/Update进行持久化
+	//	// 必须返回一个适用于 Codec.DecodeInto([]byte, runtime.Object) 的指针类型
+	//	New() runtime.Object
+	//}
+
+	//// 还实现了rest.StandardStorage
+	//	type StandardStorage interface {
+	//	Getter
+	//	Lister
+	//	CreaterUpdater
+	//	GracefulDeleter
+	//	CollectionDeleter
+	//	Watcher
+	//}
 	*genericregistry.Store
 }
 
