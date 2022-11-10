@@ -18,6 +18,7 @@ package server
 
 import (
 	"fmt"
+	"git.woa.com/richardgu/sample-apisvc/pkg/apis/wardle/v1alpha1"
 	"io"
 	"net"
 
@@ -25,7 +26,6 @@ import (
 
 	"git.woa.com/richardgu/sample-apisvc/pkg/admission/plugin/banflunder"
 	"git.woa.com/richardgu/sample-apisvc/pkg/admission/wardleinitializer"
-	"git.woa.com/richardgu/sample-apisvc/pkg/apis/wardle/v1alpha1"
 	"git.woa.com/richardgu/sample-apisvc/pkg/apiserver"
 	clientset "git.woa.com/richardgu/sample-apisvc/pkg/generated/clientset/versioned"
 	informers "git.woa.com/richardgu/sample-apisvc/pkg/generated/informers/externalversions"
@@ -61,6 +61,7 @@ func NewWardleServerOptions(out, errOut io.Writer) *WardleServerOptions {
 		RecommendedOptions: genericoptions.NewRecommendedOptions(
 			defaultEtcdPathPrefix,
 			apiserver.Codecs.LegacyCodec(v1alpha1.SchemeGroupVersion),
+			//apiserver.Codecs.LegacyCodec(v1beta1.SchemeGroupVersion, v1alpha1.SchemeGroupVersion),
 		),
 
 		StdOut: out,
