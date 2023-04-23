@@ -214,14 +214,12 @@ func Convert_wardle_BarList_To_v1alpha1_BarList(in *wardle.BarList, out *BarList
 }
 
 func autoConvert_v1alpha1_BarSpec_To_wardle_BarSpec(in *BarSpec, out *wardle.BarSpec, s conversion.Scope) error {
-	if err := runtime.Convert_string_To_int64(&in.Name, &out.Name, s); err != nil {
-		return err
-	}
+	// INFO: in.Name opted out of conversion generation
 	return nil
 }
 
 func autoConvert_wardle_BarSpec_To_v1alpha1_BarSpec(in *wardle.BarSpec, out *BarSpec, s conversion.Scope) error {
-	out.Name = string(in.Name)
+	// INFO: in.Name opted out of conversion generation
 	return nil
 }
 

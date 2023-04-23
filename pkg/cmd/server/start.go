@@ -20,6 +20,8 @@ import (
 	"fmt"
 	"git.woa.com/richardgu/sample-apisvc/pkg/apis/wardle/v1alpha1"
 	"io"
+	"k8s.io/apimachinery/pkg/runtime"
+	"k8s.io/apimachinery/pkg/runtime/schema"
 	"net"
 
 	"github.com/spf13/cobra"
@@ -30,8 +32,6 @@ import (
 	clientset "git.woa.com/richardgu/sample-apisvc/pkg/generated/clientset/versioned"
 	informers "git.woa.com/richardgu/sample-apisvc/pkg/generated/informers/externalversions"
 	sampleopenapi "git.woa.com/richardgu/sample-apisvc/pkg/generated/openapi"
-	"k8s.io/apimachinery/pkg/runtime"
-	"k8s.io/apimachinery/pkg/runtime/schema"
 	utilerrors "k8s.io/apimachinery/pkg/util/errors"
 	"k8s.io/apiserver/pkg/admission"
 	"k8s.io/apiserver/pkg/endpoints/openapi"
@@ -61,13 +61,14 @@ func NewWardleServerOptions(out, errOut io.Writer) *WardleServerOptions {
 		RecommendedOptions: genericoptions.NewRecommendedOptions(
 			defaultEtcdPathPrefix,
 			apiserver.Codecs.LegacyCodec(v1alpha1.SchemeGroupVersion),
-			//apiserver.Codecs.LegacyCodec(v1beta1.SchemeGroupVersion, v1alpha1.SchemeGroupVersion),
+			// apiserver.Codecs.LegacyCodec(v1beta1.SchemeGroupVersion, v1alpha1.SchemeGroupVersion),
 		),
 
 		StdOut: out,
 		StdErr: errOut,
 	}
 	o.RecommendedOptions.Etcd.StorageConfig.EncodeVersioner = runtime.NewMultiGroupVersioner(v1alpha1.SchemeGroupVersion, schema.GroupKind{Group: v1alpha1.GroupName})
+	//o.RecommendedOptions.Etcd.StorageConfig.EncodeVersioner = runtime.NewMultiGroupVersioner(v1beta1.SchemeGroupVersion, schema.GroupKind{Group: v1beta1.GroupName})
 	return o
 }
 
