@@ -24,9 +24,9 @@ package v1beta1
 import (
 	unsafe "unsafe"
 
+	wardle "git.woa.com/richardgu/sample-apisvc/pkg/apis/wardle"
 	conversion "k8s.io/apimachinery/pkg/conversion"
 	runtime "k8s.io/apimachinery/pkg/runtime"
-	wardle "k8s.io/sample-apiserver/pkg/apis/wardle"
 )
 
 func init() {

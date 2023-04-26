@@ -23,13 +23,13 @@ import (
 	json "encoding/json"
 	"fmt"
 
+	v1beta1 "git.woa.com/richardgu/sample-apisvc/pkg/apis/wardle/v1beta1"
+	wardlev1beta1 "git.woa.com/richardgu/sample-apisvc/pkg/generated/applyconfiguration/wardle/v1beta1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	testing "k8s.io/client-go/testing"
-	v1beta1 "k8s.io/sample-apiserver/pkg/apis/wardle/v1beta1"
-	wardlev1beta1 "k8s.io/sample-apiserver/pkg/generated/applyconfiguration/wardle/v1beta1"
 )
 
 // FakeFlunders implements FlunderInterface

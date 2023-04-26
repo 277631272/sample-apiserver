@@ -25,11 +25,11 @@ import (
 	"k8s.io/apiserver/pkg/registry/rest"
 	genericapiserver "k8s.io/apiserver/pkg/server"
 
-	"k8s.io/sample-apiserver/pkg/apis/wardle"
-	"k8s.io/sample-apiserver/pkg/apis/wardle/install"
-	wardleregistry "k8s.io/sample-apiserver/pkg/registry"
-	fischerstorage "k8s.io/sample-apiserver/pkg/registry/wardle/fischer"
-	flunderstorage "k8s.io/sample-apiserver/pkg/registry/wardle/flunder"
+	"git.woa.com/richardgu/sample-apisvc/pkg/apis/wardle"
+	"git.woa.com/richardgu/sample-apisvc/pkg/apis/wardle/install"
+	wardleregistry "git.woa.com/richardgu/sample-apisvc/pkg/registry"
+	fischerstorage "git.woa.com/richardgu/sample-apisvc/pkg/registry/wardle/fischer"
+	flunderstorage "git.woa.com/richardgu/sample-apisvc/pkg/registry/wardle/flunder"
 )
 
 var (

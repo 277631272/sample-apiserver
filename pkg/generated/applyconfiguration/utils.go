@@ -19,11 +19,11 @@ limitations under the License.
 package applyconfiguration
 
 import (
+	v1alpha1 "git.woa.com/richardgu/sample-apisvc/pkg/apis/wardle/v1alpha1"
+	v1beta1 "git.woa.com/richardgu/sample-apisvc/pkg/apis/wardle/v1beta1"
+	wardlev1alpha1 "git.woa.com/richardgu/sample-apisvc/pkg/generated/applyconfiguration/wardle/v1alpha1"
+	wardlev1beta1 "git.woa.com/richardgu/sample-apisvc/pkg/generated/applyconfiguration/wardle/v1beta1"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
-	v1alpha1 "k8s.io/sample-apiserver/pkg/apis/wardle/v1alpha1"
-	v1beta1 "k8s.io/sample-apiserver/pkg/apis/wardle/v1beta1"
-	wardlev1alpha1 "k8s.io/sample-apiserver/pkg/generated/applyconfiguration/wardle/v1alpha1"
-	wardlev1beta1 "k8s.io/sample-apiserver/pkg/generated/applyconfiguration/wardle/v1beta1"
 )
 
 // ForKind returns an apply configuration type for the given GroupVersionKind, or nil if no

@@ -1,0 +1,3 @@
+.idea/*
+*.swp
+artifacts/simple-image/kube-sample-apiserver

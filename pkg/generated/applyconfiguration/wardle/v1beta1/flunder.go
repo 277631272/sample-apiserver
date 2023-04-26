@@ -19,10 +19,10 @@ limitations under the License.
 package v1beta1
 
 import (
+	wardlev1beta1 "git.woa.com/richardgu/sample-apisvc/pkg/apis/wardle/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	types "k8s.io/apimachinery/pkg/types"
 	v1 "k8s.io/client-go/applyconfigurations/meta/v1"
-	wardlev1beta1 "k8s.io/sample-apiserver/pkg/apis/wardle/v1beta1"
 )
 
 // FlunderApplyConfiguration represents an declarative configuration of the Flunder type for use

@@ -21,10 +21,10 @@ import (
 	"testing"
 	"time"
 
+	"git.woa.com/richardgu/sample-apisvc/pkg/admission/wardleinitializer"
+	"git.woa.com/richardgu/sample-apisvc/pkg/generated/clientset/versioned/fake"
+	informers "git.woa.com/richardgu/sample-apisvc/pkg/generated/informers/externalversions"
 	"k8s.io/apiserver/pkg/admission"
-	"k8s.io/sample-apiserver/pkg/admission/wardleinitializer"
-	"k8s.io/sample-apiserver/pkg/generated/clientset/versioned/fake"
-	informers "k8s.io/sample-apiserver/pkg/generated/informers/externalversions"
 )
 
 // TestWantsInternalWardleInformerFactory ensures that the informer factory is injected

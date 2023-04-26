@@ -23,13 +23,13 @@ import (
 	sync "sync"
 	time "time"
 
+	versioned "git.woa.com/richardgu/sample-apisvc/pkg/generated/clientset/versioned"
+	internalinterfaces "git.woa.com/richardgu/sample-apisvc/pkg/generated/informers/externalversions/internalinterfaces"
+	wardle "git.woa.com/richardgu/sample-apisvc/pkg/generated/informers/externalversions/wardle"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
 	cache "k8s.io/client-go/tools/cache"
-	versioned "k8s.io/sample-apiserver/pkg/generated/clientset/versioned"
-	internalinterfaces "k8s.io/sample-apiserver/pkg/generated/informers/externalversions/internalinterfaces"
-	wardle "k8s.io/sample-apiserver/pkg/generated/informers/externalversions/wardle"
 )
 
 // SharedInformerOption defines the functional option type for SharedInformerFactory.

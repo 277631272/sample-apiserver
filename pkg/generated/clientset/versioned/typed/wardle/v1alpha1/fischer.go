@@ -24,13 +24,13 @@ import (
 	"fmt"
 	"time"
 
+	v1alpha1 "git.woa.com/richardgu/sample-apisvc/pkg/apis/wardle/v1alpha1"
+	wardlev1alpha1 "git.woa.com/richardgu/sample-apisvc/pkg/generated/applyconfiguration/wardle/v1alpha1"
+	scheme "git.woa.com/richardgu/sample-apisvc/pkg/generated/clientset/versioned/scheme"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	rest "k8s.io/client-go/rest"
-	v1alpha1 "k8s.io/sample-apiserver/pkg/apis/wardle/v1alpha1"
-	wardlev1alpha1 "k8s.io/sample-apiserver/pkg/generated/applyconfiguration/wardle/v1alpha1"
-	scheme "k8s.io/sample-apiserver/pkg/generated/clientset/versioned/scheme"
 )
 
 // FischersGetter has a method to return a FischerInterface.
