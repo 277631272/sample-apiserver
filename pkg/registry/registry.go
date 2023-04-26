@@ -18,7 +18,6 @@ package registry
 
 import (
 	"fmt"
-
 	genericregistry "k8s.io/apiserver/pkg/registry/generic/registry"
 )
 
@@ -53,3 +52,9 @@ func RESTInPeace(storage *REST, err error) *REST {
 	}
 	return storage
 }
+
+//func (rest *REST) Create(ctx context.Context, obj runtime.Object, createValidation rest.ValidateObjectFunc, options *metav1.CreateOptions) (runtime.Object, error) {
+//	fmt.Printf("create....: %#v\n", obj)
+//	return rest.Store.Create(ctx, obj, createValidation, options)
+//	//return nil, errors.NewMethodNotSupported(wardle.Resource("bars"), "CREATE")
+//}

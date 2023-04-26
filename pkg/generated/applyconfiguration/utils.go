@@ -31,6 +31,10 @@ import (
 func ForKind(kind schema.GroupVersionKind) interface{} {
 	switch kind {
 	// Group=wardle.example.com, Version=v1alpha1
+	case v1alpha1.SchemeGroupVersion.WithKind("Bar"):
+		return &wardlev1alpha1.BarApplyConfiguration{}
+	case v1alpha1.SchemeGroupVersion.WithKind("BarSpec"):
+		return &wardlev1alpha1.BarSpecApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("Fischer"):
 		return &wardlev1alpha1.FischerApplyConfiguration{}
 	case v1alpha1.SchemeGroupVersion.WithKind("Flunder"):
@@ -39,6 +43,10 @@ func ForKind(kind schema.GroupVersionKind) interface{} {
 		return &wardlev1alpha1.FlunderSpecApplyConfiguration{}
 
 		// Group=wardle.example.com, Version=v1beta1
+	case v1beta1.SchemeGroupVersion.WithKind("Bar"):
+		return &wardlev1beta1.BarApplyConfiguration{}
+	case v1beta1.SchemeGroupVersion.WithKind("BarSpec"):
+		return &wardlev1beta1.BarSpecApplyConfiguration{}
 	case v1beta1.SchemeGroupVersion.WithKind("Flunder"):
 		return &wardlev1beta1.FlunderApplyConfiguration{}
 	case v1beta1.SchemeGroupVersion.WithKind("FlunderSpec"):

@@ -174,7 +174,7 @@ func Convert_wardle_BarList_To_v1beta1_BarList(in *wardle.BarList, out *BarList,
 }
 
 func autoConvert_v1beta1_BarSpec_To_wardle_BarSpec(in *BarSpec, out *wardle.BarSpec, s conversion.Scope) error {
-	out.Name = in.Name
+	// INFO: in.Name opted out of conversion generation
 	return nil
 }
 
@@ -184,7 +184,7 @@ func Convert_v1beta1_BarSpec_To_wardle_BarSpec(in *BarSpec, out *wardle.BarSpec,
 }
 
 func autoConvert_wardle_BarSpec_To_v1beta1_BarSpec(in *wardle.BarSpec, out *BarSpec, s conversion.Scope) error {
-	out.Name = in.Name
+	// INFO: in.Name opted out of conversion generation
 	return nil
 }
 

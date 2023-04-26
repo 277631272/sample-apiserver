@@ -20,11 +20,13 @@ package fake
 
 import (
 	"context"
+	json "encoding/json"
+	"fmt"
 
 	v1alpha1 "git.woa.com/richardgu/sample-apisvc/pkg/apis/wardle/v1alpha1"
+	wardlev1alpha1 "git.woa.com/richardgu/sample-apisvc/pkg/generated/applyconfiguration/wardle/v1alpha1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
-	schema "k8s.io/apimachinery/pkg/runtime/schema"
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	testing "k8s.io/client-go/testing"
@@ -36,9 +38,9 @@ type FakeBars struct {
 	ns   string
 }
 
-var barsResource = schema.GroupVersionResource{Group: "wardle.example.com", Version: "v1alpha1", Resource: "bars"}
+var barsResource = v1alpha1.SchemeGroupVersion.WithResource("bars")
 
-var barsKind = schema.GroupVersionKind{Group: "wardle.example.com", Version: "v1alpha1", Kind: "Bar"}
+var barsKind = v1alpha1.SchemeGroupVersion.WithKind("Bar")
 
 // Get takes name of the bar, and returns the corresponding bar object, and an error if there is any.
 func (c *FakeBars) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.Bar, err error) {
@@ -134,6 +136,51 @@ func (c *FakeBars) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, 
 func (c *FakeBars) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.Bar, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewPatchSubresourceAction(barsResource, c.ns, name, pt, data, subresources...), &v1alpha1.Bar{})
+
+	if obj == nil {
+		return nil, err
+	}
+	return obj.(*v1alpha1.Bar), err
+}
+
+// Apply takes the given apply declarative configuration, applies it and returns the applied bar.
+func (c *FakeBars) Apply(ctx context.Context, bar *wardlev1alpha1.BarApplyConfiguration, opts v1.ApplyOptions) (result *v1alpha1.Bar, err error) {
+	if bar == nil {
+		return nil, fmt.Errorf("bar provided to Apply must not be nil")
+	}
+	data, err := json.Marshal(bar)
+	if err != nil {
+		return nil, err
+	}
+	name := bar.Name
+	if name == nil {
+		return nil, fmt.Errorf("bar.Name must be provided to Apply")
+	}
+	obj, err := c.Fake.
+		Invokes(testing.NewPatchSubresourceAction(barsResource, c.ns, *name, types.ApplyPatchType, data), &v1alpha1.Bar{})
+
+	if obj == nil {
+		return nil, err
+	}
+	return obj.(*v1alpha1.Bar), err
+}
+
+// ApplyStatus was generated because the type contains a Status member.
+// Add a +genclient:noStatus comment above the type to avoid generating ApplyStatus().
+func (c *FakeBars) ApplyStatus(ctx context.Context, bar *wardlev1alpha1.BarApplyConfiguration, opts v1.ApplyOptions) (result *v1alpha1.Bar, err error) {
+	if bar == nil {
+		return nil, fmt.Errorf("bar provided to Apply must not be nil")
+	}
+	data, err := json.Marshal(bar)
+	if err != nil {
+		return nil, err
+	}
+	name := bar.Name
+	if name == nil {
+		return nil, fmt.Errorf("bar.Name must be provided to Apply")
+	}
+	obj, err := c.Fake.
+		Invokes(testing.NewPatchSubresourceAction(barsResource, c.ns, *name, types.ApplyPatchType, data, "status"), &v1alpha1.Bar{})
 
 	if obj == nil {
 		return nil, err

@@ -101,6 +101,7 @@ type BarList struct {
 
 // BarSpec is the specification of a Bar.
 type BarSpec struct {
+	// +k8s:conversion-gen=false
 	// A name of another bar, mutually exclusive to the FischerReference.
 	Name int64 `json:"name,omitempty" protobuf:"bytes,1,opt,name=name"`
 }

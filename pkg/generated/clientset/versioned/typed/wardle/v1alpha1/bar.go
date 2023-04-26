@@ -20,9 +20,12 @@ package v1alpha1
 
 import (
 	"context"
+	json "encoding/json"
+	"fmt"
 	"time"
 
 	v1alpha1 "git.woa.com/richardgu/sample-apisvc/pkg/apis/wardle/v1alpha1"
+	wardlev1alpha1 "git.woa.com/richardgu/sample-apisvc/pkg/generated/applyconfiguration/wardle/v1alpha1"
 	scheme "git.woa.com/richardgu/sample-apisvc/pkg/generated/clientset/versioned/scheme"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	types "k8s.io/apimachinery/pkg/types"
@@ -47,6 +50,8 @@ type BarInterface interface {
 	List(ctx context.Context, opts v1.ListOptions) (*v1alpha1.BarList, error)
 	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
 	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.Bar, err error)
+	Apply(ctx context.Context, bar *wardlev1alpha1.BarApplyConfiguration, opts v1.ApplyOptions) (result *v1alpha1.Bar, err error)
+	ApplyStatus(ctx context.Context, bar *wardlev1alpha1.BarApplyConfiguration, opts v1.ApplyOptions) (result *v1alpha1.Bar, err error)
 	BarExpansion
 }
 
@@ -188,6 +193,62 @@ func (c *bars) Patch(ctx context.Context, name string, pt types.PatchType, data 
 		Name(name).
 		SubResource(subresources...).
 		VersionedParams(&opts, scheme.ParameterCodec).
+		Body(data).
+		Do(ctx).
+		Into(result)
+	return
+}
+
+// Apply takes the given apply declarative configuration, applies it and returns the applied bar.
+func (c *bars) Apply(ctx context.Context, bar *wardlev1alpha1.BarApplyConfiguration, opts v1.ApplyOptions) (result *v1alpha1.Bar, err error) {
+	if bar == nil {
+		return nil, fmt.Errorf("bar provided to Apply must not be nil")
+	}
+	patchOpts := opts.ToPatchOptions()
+	data, err := json.Marshal(bar)
+	if err != nil {
+		return nil, err
+	}
+	name := bar.Name
+	if name == nil {
+		return nil, fmt.Errorf("bar.Name must be provided to Apply")
+	}
+	result = &v1alpha1.Bar{}
+	err = c.client.Patch(types.ApplyPatchType).
+		Namespace(c.ns).
+		Resource("bars").
+		Name(*name).
+		VersionedParams(&patchOpts, scheme.ParameterCodec).
+		Body(data).
+		Do(ctx).
+		Into(result)
+	return
+}
+
+// ApplyStatus was generated because the type contains a Status member.
+// Add a +genclient:noStatus comment above the type to avoid generating ApplyStatus().
+func (c *bars) ApplyStatus(ctx context.Context, bar *wardlev1alpha1.BarApplyConfiguration, opts v1.ApplyOptions) (result *v1alpha1.Bar, err error) {
+	if bar == nil {
+		return nil, fmt.Errorf("bar provided to Apply must not be nil")
+	}
+	patchOpts := opts.ToPatchOptions()
+	data, err := json.Marshal(bar)
+	if err != nil {
+		return nil, err
+	}
+
+	name := bar.Name
+	if name == nil {
+		return nil, fmt.Errorf("bar.Name must be provided to Apply")
+	}
+
+	result = &v1alpha1.Bar{}
+	err = c.client.Patch(types.ApplyPatchType).
+		Namespace(c.ns).
+		Resource("bars").
+		Name(*name).
+		SubResource("status").
+		VersionedParams(&patchOpts, scheme.ParameterCodec).
 		Body(data).
 		Do(ctx).
 		Into(result)
