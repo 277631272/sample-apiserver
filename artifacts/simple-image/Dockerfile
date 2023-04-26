@@ -13,5 +13,5 @@
 # limitations under the License.
 
 FROM fedora
-ADD kube-sample-apiserver /
+ADD artifacts/simple-image/kube-sample-apiserver /
 ENTRYPOINT ["/kube-sample-apiserver"]

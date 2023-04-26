@@ -4,7 +4,7 @@
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -o artifacts/simple-image/kube-sample-apiserver
 
 # build image
-hubAddr="mirrors.tencent.com/eksimages/kube-sample-apiserver"
+hubAddr="gymai/kube-sample-apiserver"
 
 hookBranch=`git symbolic-ref --short -q HEAD | sed 's/\//-/g'`
 hookRevision=`git rev-parse --short HEAD`
@@ -17,11 +17,11 @@ echo "branchTarget: ${branchTarget}, revisionTarget: ${revisionTarget}"
 
 docker build -t ${branchTarget} -f ./artifacts/simple-image/Dockerfile .
 
-docker tag ${branchTarget} ${revisionTarget}
+#docker tag ${branchTarget} ${revisionTarget}
 
 docker push ${branchTarget}
-docker push ${revisionTarget}
+#docker push ${revisionTarget}
 
 docker rmi ${branchTarget}
-docker rmi ${revisionTarget}
+#docker rmi ${revisionTarget}
 
