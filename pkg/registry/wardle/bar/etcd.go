@@ -38,7 +38,8 @@ func NewREST(scheme *runtime.Scheme, optsGetter generic.RESTOptionsGetter) (*reg
 		// 判断对象是否可以被该存储处理
 		PredicateFunc: MatchBar,
 		// 资源的复数名称，当上下文中缺少必要的请求信息时使用
-		DefaultQualifiedResource: wardle.Resource("bars"),
+		DefaultQualifiedResource:  wardle.Resource("bars"),
+		SingularQualifiedResource: wardle.Resource("bar"),
 
 		// 增删改的策略
 		CreateStrategy: strategy,
